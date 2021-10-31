@@ -40,10 +40,7 @@ public class VendingMachineCsvDao implements Dao {
     }
 
     @Override
-    public Dto toDto(List itemDetails) {
-
-        return itemDto(itemDetails);
-    }
+    public Dto recordAsDto(List<String> itemDetails) { return itemDto(itemDetails); }
 
     private static ItemDto itemDto(List<String> itemDetails) {
         String name = itemDetails.get(0);
