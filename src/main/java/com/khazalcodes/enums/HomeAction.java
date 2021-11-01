@@ -1,5 +1,7 @@
 package com.khazalcodes.enums;
 
+import com.khazalcodes.exceptions.ActionDoesNotExistException;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +26,12 @@ public enum HomeAction {
     private static final Map<Integer, HomeAction> map = new HashMap<>();
     static { Arrays.stream(HomeAction.values()).forEach(e -> map.put(e.IntValue, e)); }
 
-    public static HomeAction fromInt(int value) { return map.get(value); }
+    public static HomeAction fromInt(int value) throws ActionDoesNotExistException {
+        if (!map.containsKey(value)) {
+            throw new ActionDoesNotExistException("The action you chose does not exist");
+        }
+
+        return map.get(value);
+    }
 }
 
