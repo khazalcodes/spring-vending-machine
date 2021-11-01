@@ -1,5 +1,8 @@
 package com.khazalcodes;
 
+import com.khazalcodes.enums.HomeAction;
+
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,9 +19,11 @@ public class Controller {
 
         boolean userWantsToVend = true;
 
-        while(userWantsToVend) {
-            HomeAction userChoice = View.homeMenu;
-        }
+        Arrays.stream(HomeAction.values()).forEach(e -> System.out.println(e.IntValue));
+//        System.out.println(HomeAction.values());
+//        while(userWantsToVend) {
+//            HomeAction userChoice = View.homeMenu;
+//        }
     }
 
 }
