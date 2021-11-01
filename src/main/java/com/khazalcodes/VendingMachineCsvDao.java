@@ -4,50 +4,72 @@ import com.khazalcodes.interfaces.Dao;
 import com.khazalcodes.interfaces.Dto;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class VendingMachineCsvDao implements Dao {
+public class VendingMachineCsvDao implements Dao<ItemDto> {
 
     private static final Path DB_PATH = Path.of("./src/main/resources/vending-machine-items.csv");
-
+    private static final StringBuilder updatedDb = new StringBuilder();
     public VendingMachineCsvDao() {}
 
     @Override
-    public Map<Integer, Dto> getDbAsMap() {
-        Map<Integer, Dto> vendingMachineItemsHashMap = new HashMap<>();
-        List<List<String>> itemStrings = new ArrayList<>();
+    public Map<Integer, ItemDto> getDbAsMap() {
+        Map<Integer, ItemDto> itemsHashMap = new HashMap<>();
+        List<List<String>> itemStringsList;
+        List<String> fileLines;
 
         try {
-            itemStrings = Files.readAllLines(DB_PATH).stream()
-                    .map(line -> Arrays.asList(line.split(",")))
-                    .collect(Collectors.toList());
-            itemStrings.stream()
-                    .map()
+            fileLines = Files.readAllLines(DB_PATH);
         } catch (IOException e) {
             System.out.println("File could not be read. Check if path is correct");
+            return null;
         }
 
-        return vendingMachineItemsHashMap;
+        itemStringsList = fileLines.stream()
+                .map(line -> Arrays.asList(line.split(",")))
+                .collect(Collectors.toList());
+
+        itemStringsList.stream()
+                .map(this::recordAsDto)
+                .forEach(itemDto -> itemsHashMap.put(itemDto.getKey(), itemDto));
+
+        return itemsHashMap;
     }
 
     @Override
-    public void saveDb() {
-        return;
+    public void saveDb(Map<Integer, ItemDto> itemHashMap) {
+        itemHashMap.values().forEach(VendingMachineCsvDao::appendToUpdatedLibrary);
+
+        if (updatedDb.length() > 0) {
+            updatedDb.deleteCharAt(updatedDb.length() - 1);
+        }
+
+        try {
+            Files.writeString(getDbPath(), updatedDb.toString());
+        } catch (IOException e) {
+            System.out.println("File could not be written to. Check if path is correct");
+        }
+    }
+
+    private static void appendToUpdatedLibrary(ItemDto itemDto) {
+        String sep = ",";
+
+        updatedDb.append(itemDto.getName()).append(sep)
+                .append(itemDto.getPrice()).append(sep)
+                .append(itemDto.getStockRemaining()).append(System.lineSeparator());
     }
 
     @Override
-    public Dto recordAsDto(List<String> itemDetails) { return itemDto(itemDetails); }
-
-    private static ItemDto itemDto(List<String> itemDetails) {
+    public ItemDto recordAsDto(List<String> itemDetails) {
         String name = itemDetails.get(0);
         String price = itemDetails.get(1);
         String stockRemaining = itemDetails.get(2);
 
         return new ItemDto(name, price, stockRemaining);
+
     }
 
     public Path getDbPath() { return DB_PATH; }

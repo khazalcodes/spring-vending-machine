@@ -17,8 +17,11 @@ class VendingMachineCsvDaoTest {
 
     @Test
     void getDbAsMap() {
+        Map<Integer, ItemDto> dbMap = underTest.getDbAsMap();
         assert underTest.getDbAsMap() != null;
+        Assertions.assertEquals(dbMap.get(0).getName(), "water");
     }
+
 
     @Test
     void saveDb() {

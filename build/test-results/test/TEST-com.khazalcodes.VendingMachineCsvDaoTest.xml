@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.khazalcodes.VendingMachineCsvDaoTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2021-10-31T17:36:45" hostname="nona" time="0.027">
+<testsuite name="com.khazalcodes.VendingMachineCsvDaoTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-10-31T23:01:02" hostname="nona" time="0.03">
   <properties/>
-  <testcase name="getDbAsMap()" classname="com.khazalcodes.VendingMachineCsvDaoTest" time="0.019"/>
-  <testcase name="saveDb()" classname="com.khazalcodes.VendingMachineCsvDaoTest" time="0.002"/>
-  <testcase name="dbPathIsCorrect()" classname="com.khazalcodes.VendingMachineCsvDaoTest" time="0.004"/>
+  <testcase name="getDbAsMap()" classname="com.khazalcodes.VendingMachineCsvDaoTest" time="0.03"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
