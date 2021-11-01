@@ -19,7 +19,6 @@ public class Controller {
 
         boolean userWantsToVend = true;
 
-        Arrays.stream(HomeAction.values()).forEach(e -> System.out.println(e.IntValue));
 //        System.out.println(HomeAction.values());
 //        while(userWantsToVend) {
 //            HomeAction userChoice = View.homeMenu;
