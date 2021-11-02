@@ -28,7 +28,7 @@ public enum HomeAction {
 
     public static HomeAction fromInt(int value) throws ActionDoesNotExistException {
         if (!map.containsKey(value)) {
-            throw new ActionDoesNotExistException("The action you chose does not exist");
+            throw new ActionDoesNotExistException("\nThe action you chose does not exist");
         }
 
         return map.get(value);

@@ -15,13 +15,11 @@ public class View {
 
 
 
-    public static HomeAction homeMenu() throws ActionDoesNotExistException {
+    public static HomeAction homeMenu()  {
         System.out.println("\n" + ENTER_NUMBER_HOME);
         System.out.println(Menus.HOME_MENU);
 
-        int userInput = UserInput.asInt();
-
-        return null;
+        return ValidInput.homeAction();
     }
 
     public static void printDVDs(Map<Integer, ItemDto> itemsHashMap) {

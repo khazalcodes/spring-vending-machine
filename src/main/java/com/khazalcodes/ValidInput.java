@@ -1,14 +1,13 @@
 package com.khazalcodes;
 
-import com.khazalcodes.Menus;
-import com.khazalcodes.UserInput;
 import com.khazalcodes.enums.HomeAction;
 import com.khazalcodes.exceptions.ActionDoesNotExistException;
 
-import java.time.LocalDate;
-import java.util.Collections;
-import java.util.Set;
 
+/**
+ * This class was left separate from the service layer since in a regular web app, this kind of validation would be
+ * handled on the front end. Since the front end is the command line, user IO should be validated upon entry
+ * */
 public class ValidInput {
     private static final String INVALID_INPUT_INPUT_MESSAGE = "You have entered an invalid input. Please select the " +
             "number that corresponds with the following";
@@ -26,7 +25,7 @@ public class ValidInput {
                 action = HomeAction.fromInt(UserInput.asInt());
                 inputIsValid = true;
             } catch (ActionDoesNotExistException e) {
-                e.getMessage();
+                System.out.println(e.getMessage());;
                 System.out.println(INVALID_INPUT_INPUT_MESSAGE);
                 System.out.println(Menus.HOME_MENU);
             }
