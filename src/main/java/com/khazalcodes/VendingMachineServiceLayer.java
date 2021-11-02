@@ -2,7 +2,6 @@ package com.khazalcodes;
 
 import com.khazalcodes.interfaces.ServiceLayer;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class VendingMachineServiceLayer implements ServiceLayer {
@@ -15,7 +14,7 @@ public class VendingMachineServiceLayer implements ServiceLayer {
 
 
     @Override
-    public Map<Integer, ItemDto> getItems() { return csvDao.getDbAsMap(); }
+    public Map<Integer, ItemDto> getItems() { return csvDao.getItemsMap(); }
 
     @Override
     public void decrementStock(int itemId) {

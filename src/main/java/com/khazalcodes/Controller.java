@@ -2,7 +2,6 @@ package com.khazalcodes;
 
 import com.khazalcodes.enums.HomeAction;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +14,7 @@ public class Controller {
     // TODO Try introducing invalid choice exception
 
     public static void startVending() {
-        itemsHashMap = dao.getDbAsMap();
+        itemsHashMap = dao.getItemsMap();
 
         boolean userWantsToVend = true;
 
