@@ -15,16 +15,16 @@ public class Controller {
     // TODO Try introducing invalid choice exception
 
     public static void startVending() {
-//        itemsHashMap = dao.getDbAsMap();
+        itemsHashMap = dao.getDbAsMap();
 
-//        boolean userWantsToVend = true;
+        boolean userWantsToVend = true;
 
-        HomeAction userAction = View.homeMenu();
-        System.out.println(userAction.toString());
-//        System.out.println(HomeAction.values());
-//        while(userWantsToVend) {
-//            HomeAction userChoice = View.homeMenu;
-//        }
+
+        System.out.println(HomeAction.values());
+
+        while (userWantsToVend) {
+            HomeAction userChoice = View.homeMenu();
+        }
     }
 
 }
