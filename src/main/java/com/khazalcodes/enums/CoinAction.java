@@ -1,13 +1,13 @@
 package com.khazalcodes.enums;
 
 import com.khazalcodes.exceptions.NonExistantActionException;
-import com.khazalcodes.interfaces.MenuAction;
+import com.khazalcodes.interfaces.base.Action;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum CoinAction implements MenuAction {
+public enum CoinAction implements Action {
     ONE_P(1),
     TWO_P(2),
     FIVE_P(3),

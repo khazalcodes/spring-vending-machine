@@ -2,7 +2,7 @@ package com.khazalcodes;
 
 import com.khazalcodes.enums.HomeAction;
 import com.khazalcodes.enums.VendingMenu;
-import com.khazalcodes.interfaces.MenuAction;
+import com.khazalcodes.interfaces.base.Action;
 
 import java.util.ArrayList;
 
@@ -19,18 +19,19 @@ public class Controller {
     // TODO Try introducing invalid choice exception
 
     public void startVending() {
-        boolean userWantsToVend = true;
         View.welcomeMessage();
 
-        while (userWantsToVend) {
+        while (true) {
             view.displayItems(new ArrayList<>(service.getAll().values()));
-            MenuAction userChoice = view.menu(VendingMenu.HOME);
+            Action userChoice = view.menu(VendingMenu.HOME);
 
             if (userChoice == HomeAction.QUIT) {
-                userWantsToVend = false;
                 break;
             }
         }
+
+        View.goodbyeMessage();
+        service.saveDb();
     }
 
 }

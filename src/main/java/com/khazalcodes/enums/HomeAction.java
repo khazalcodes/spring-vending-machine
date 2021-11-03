@@ -1,13 +1,13 @@
 package com.khazalcodes.enums;
 
 import com.khazalcodes.exceptions.NonExistantActionException;
-import com.khazalcodes.interfaces.MenuAction;
+import com.khazalcodes.interfaces.base.Action;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum HomeAction implements MenuAction {
+public enum HomeAction implements Action {
     BUY(1),
     QUIT(2);
 

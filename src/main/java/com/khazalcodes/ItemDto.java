@@ -1,10 +1,10 @@
 package com.khazalcodes;
 
-import com.khazalcodes.interfaces.Dto;
+import com.khazalcodes.interfaces.DbDto;
 
 import java.math.BigDecimal;
 
-public class ItemDto implements Dto {
+public class ItemDto implements DbDto {
 
     private static int CURRENTLY_AVAILABLE_KEY = 0;
     private static final int INVALID_NUMBER = -1;

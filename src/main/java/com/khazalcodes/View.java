@@ -1,7 +1,7 @@
 package com.khazalcodes;
 
 import com.khazalcodes.enums.VendingMenu;
-import com.khazalcodes.interfaces.MenuAction;
+import com.khazalcodes.interfaces.base.Action;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class View {
 
 
 
-    public MenuAction menu(VendingMenu menu)  {
+    public Action menu(VendingMenu menu)  {
         System.out.println("\n" + ENTER_CHOICE);
         menu.show();
 

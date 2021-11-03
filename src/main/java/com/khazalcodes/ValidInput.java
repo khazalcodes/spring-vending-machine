@@ -1,10 +1,8 @@
 package com.khazalcodes;
 
-import com.khazalcodes.enums.CoinAction;
 import com.khazalcodes.enums.VendingMenu;
-import com.khazalcodes.enums.HomeAction;
 import com.khazalcodes.exceptions.NonExistantActionException;
-import com.khazalcodes.interfaces.MenuAction;
+import com.khazalcodes.interfaces.base.Action;
 
 /**
  * This class was left separate from the service layer since in a regular web app, this kind of validation would be
@@ -14,9 +12,9 @@ public class ValidInput {
     private static final String INVALID_INPUT_INPUT_MESSAGE = "You have entered an invalid input. Please select the " +
             "number that corresponds with the following";
 
-    public static MenuAction action(VendingMenu menu) {
+    public static Action action(VendingMenu menu) {
         boolean inputIsValid = false;
-        MenuAction action = null;
+        Action action = null;
         int userChoice = UserInput.asInt();
 
 

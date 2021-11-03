@@ -1,10 +1,10 @@
 package com.khazalcodes;
 
-import com.khazalcodes.interfaces.Service;
+import com.khazalcodes.interfaces.DbService;
 
 import java.util.Map;
 
-public class VendingMachineService implements Service<ItemDto> {
+public class VendingMachineService implements DbService<ItemDto> {
 
     private final VendingMachineCsvDao csvDao;
 
@@ -23,5 +23,5 @@ public class VendingMachineService implements Service<ItemDto> {
     public ItemDto get(int id) { return csvDao.get(id); }
 
     @Override
-    public void save() { csvDao.saveDb(); }
+    public void saveDb() { csvDao.saveDb(); }
 }
