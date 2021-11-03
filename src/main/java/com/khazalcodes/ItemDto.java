@@ -38,7 +38,7 @@ public class ItemDto implements Dto {
 
 
     @Override
-    public String toString() { return key + ".\t" + name + "\t" + price.toString() + "\t" + stockRemaining + "\n"; }
+    public String toString() { return key + ".\t" + name + "\t" + price.toString() + "\t" + stockRemaining; }
 
     @Override
     public int getKey() { return key; }

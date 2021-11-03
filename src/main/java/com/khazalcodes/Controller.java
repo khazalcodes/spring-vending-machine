@@ -3,24 +3,28 @@ package com.khazalcodes;
 import com.khazalcodes.enums.HomeAction;
 import com.khazalcodes.interfaces.Service;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 public class Controller {
 
-    private View view;
-    private Service<ItemDto> vendingMachineService;
+    private final View view;
+    private final VendingMachineService service;
 
-    public Controller (View view, Service<ItemDto> vendingMachineService) {
+    public Controller (View view, VendingMachineService service) {
         this.view = view;
-        this.vendingMachineService = vendingMachineService;
+        this.service = service;
     }
 
     // TODO Try introducing invalid choice exception
 
-    public static void startVending() {
-
+    public void startVending() {
         boolean userWantsToVend = true;
+        View.welcomeMessage();
 
         while (userWantsToVend) {
-            HomeAction userChoice = view.homeMenu();
+            HomeAction userChoice = view.homeMenu(new ArrayList<>(service.getAll().values()));
+
         }
     }
 
