@@ -1,28 +1,26 @@
 package com.khazalcodes;
 
 import com.khazalcodes.enums.HomeAction;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.khazalcodes.interfaces.Service;
 
 public class Controller {
-    private static final VendingMachineCsvDao dao = new VendingMachineCsvDao();
 
-    public static Map<Integer, ItemDto> itemsHashMap = new HashMap<>();
+    private View view;
+    private Service<ItemDto> vendingMachineService;
 
+    public Controller (View view, Service<ItemDto> vendingMachineService) {
+        this.view = view;
+        this.vendingMachineService = vendingMachineService;
+    }
 
     // TODO Try introducing invalid choice exception
 
     public static void startVending() {
-        itemsHashMap = dao.getItemsMap();
 
         boolean userWantsToVend = true;
 
-
-        System.out.println(HomeAction.values());
-
         while (userWantsToVend) {
-            HomeAction userChoice = View.homeMenu();
+            HomeAction userChoice = view.homeMenu();
         }
     }
 
