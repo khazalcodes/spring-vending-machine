@@ -6,13 +6,20 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum HomeAction {
-    BUY(1),
-    QUIT(2);
+public enum CoinAction {
+    ONE_P(1),
+    TWO_P(2),
+    FIVE_P(3),
+    TEN_P(4),
+    TWENTY_P(5),
+    FIFTY_P(6),
+    ONE_POUND(7),
+    TWO_POUNDS(8),
+    FINISH(9);
 
     public final int IntValue;
 
-    HomeAction(int value) { this.IntValue = value; }
+    CoinAction(int value) { this.IntValue = value; }
 
     /**
      * This design pattern was sourced from here: http://dan.clarke.name/2011/07/enum-in-java-with-int-conversion/

@@ -25,6 +25,12 @@ public class Controller {
         while (userWantsToVend) {
             HomeAction userChoice = view.homeMenu(new ArrayList<>(service.getAll().values()));
 
+            if (userChoice == HomeAction.QUIT) {
+                userWantsToVend = false;
+                break;
+            }
+
+
         }
     }
 

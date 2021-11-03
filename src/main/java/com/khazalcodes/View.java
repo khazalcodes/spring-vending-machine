@@ -23,6 +23,8 @@ public class View {
         return ValidInput.homeAction();
     }
 
+
+
     public static void printItems(List<ItemDto> itemsHashMap) {
         itemsHashMap.forEach(value -> System.out.println(value.toString()));
     }
