@@ -36,11 +36,9 @@ public class ItemDto implements Dto {
         CURRENTLY_AVAILABLE_KEY++;
     }
 
-    public boolean isDisplayable() {
-        return (!this.price.equals(BigDecimal.valueOf(INVALID_NUMBER))  &&
-                this.stockRemaining != INVALID_NUMBER &&
-                this.stockRemaining != NO_STOCK);
-    }
+
+    @Override
+    public String toString() { return key + ".\t" + name + "\t" + price.toString() + "\t" + stockRemaining + "\n"; }
 
     @Override
     public int getKey() { return key; }
@@ -61,15 +59,23 @@ public class ItemDto implements Dto {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+    public void setPrice(BigDecimal price) { this.price = price; }
 
     public int getStockRemaining() {
         return stockRemaining;
     }
 
-    public void restock() {
-        this.stockRemaining += 10;
+    public void restock() { this.stockRemaining += 10; }
+
+    public String toCsvString() {
+        String sep = ",";
+        return name + sep + price.toString() + sep + stockRemaining + System.lineSeparator();
+    }
+
+
+    public boolean isDisplayable() {
+        return (!this.price.equals(BigDecimal.valueOf(INVALID_NUMBER))  &&
+                this.stockRemaining != INVALID_NUMBER &&
+                this.stockRemaining != NO_STOCK);
     }
 }

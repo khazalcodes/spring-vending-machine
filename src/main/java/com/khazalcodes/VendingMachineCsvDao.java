@@ -59,7 +59,7 @@ public class VendingMachineCsvDao implements Dao<ItemDto> {
 
     @Override
     public void saveDb() {
-        itemsHashMap.values().forEach(VendingMachineCsvDao::appendToUpdatedLibrary);
+        itemsHashMap.values().forEach(i -> updatedDb.append(i.toCsvString()));
 
         if (updatedDb.length() > 0) {
             updatedDb.deleteCharAt(updatedDb.length() - 1);
@@ -70,14 +70,6 @@ public class VendingMachineCsvDao implements Dao<ItemDto> {
         } catch (IOException e) {
             System.out.println("File could not be written to. Check if path is correct");
         }
-    }
-
-    private void appendToUpdatedLibrary(ItemDto itemDto) {
-        String sep = ",";
-
-        updatedDb.append(itemDto.getName()).append(sep)
-                .append(itemDto.getPrice()).append(sep)
-                .append(itemDto.getStockRemaining()).append(System.lineSeparator());
     }
 
     private ItemDto recordAsDto(List<String> itemDetails) {

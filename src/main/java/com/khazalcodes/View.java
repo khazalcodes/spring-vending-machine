@@ -23,16 +23,6 @@ public class View {
     }
 
     public static void printDVDs(Map<Integer, ItemDto> itemsHashMap) {
-        itemsHashMap.forEach((key, value) -> printItemDto(value));
-    }
-
-    /**
-     * This should be moved to a toString Overriding method in DVDModel but time is of the essence at 00:55 30/10/2021
-     * */
-    private static void printItemDto(ItemDto item) {
-        if (item.isDisplayable()) {
-            System.out.printf("%d.\t%s\t%s\t%d\n",
-                    item.getKey(), item.getName(), item.getPrice().toString(), item.getStockRemaining());
-        }
+        itemsHashMap.forEach((key, value) -> System.out.println(value.toString()));
     }
 }
