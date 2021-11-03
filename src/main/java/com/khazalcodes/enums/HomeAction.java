@@ -1,12 +1,13 @@
 package com.khazalcodes.enums;
 
-import com.khazalcodes.exceptions.ActionDoesNotExistException;
+import com.khazalcodes.exceptions.NonExistantActionException;
+import com.khazalcodes.interfaces.MenuAction;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum HomeAction {
+public enum HomeAction implements MenuAction {
     BUY(1),
     QUIT(2);
 
@@ -26,9 +27,9 @@ public enum HomeAction {
     private static final Map<Integer, HomeAction> map = new HashMap<>();
     static { Arrays.stream(HomeAction.values()).forEach(e -> map.put(e.IntValue, e)); }
 
-    public static HomeAction fromInt(int value) throws ActionDoesNotExistException {
+    public static HomeAction fromInt(int value) throws NonExistantActionException {
         if (!map.containsKey(value)) {
-            throw new ActionDoesNotExistException("\nThe action you chose does not exist");
+            throw new NonExistantActionException("\nThe action you chose does not exist");
         }
 
         return map.get(value);

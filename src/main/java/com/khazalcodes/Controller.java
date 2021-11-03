@@ -1,10 +1,10 @@
 package com.khazalcodes;
 
 import com.khazalcodes.enums.HomeAction;
-import com.khazalcodes.interfaces.Service;
+import com.khazalcodes.enums.VendingMenu;
+import com.khazalcodes.interfaces.MenuAction;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class Controller {
 
@@ -23,14 +23,13 @@ public class Controller {
         View.welcomeMessage();
 
         while (userWantsToVend) {
-            HomeAction userChoice = view.homeMenu(new ArrayList<>(service.getAll().values()));
+            view.displayItems(new ArrayList<>(service.getAll().values()));
+            MenuAction userChoice = view.menu(VendingMenu.HOME);
 
             if (userChoice == HomeAction.QUIT) {
                 userWantsToVend = false;
                 break;
             }
-
-
         }
     }
 
