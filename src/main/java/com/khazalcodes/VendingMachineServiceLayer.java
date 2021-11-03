@@ -1,32 +1,30 @@
 package com.khazalcodes;
 
+import com.khazalcodes.interfaces.Dto;
 import com.khazalcodes.interfaces.ServiceLayer;
 
 import java.util.Map;
 
-public class VendingMachineServiceLayer implements ServiceLayer {
+public class VendingMachineServiceLayer implements ServiceLayer<ItemDto> {
 
     private final VendingMachineCsvDao csvDao;
 
-    public VendingMachineServiceLayer(VendingMachineCsvDao csvDao) {
-        this.csvDao = csvDao;
-    }
+    public VendingMachineServiceLayer(VendingMachineCsvDao csvDao) { this.csvDao = csvDao; }
 
 
     @Override
-    public Map<Integer, ItemDto> getItems() { return csvDao.getItemsMap(); }
+    public Map<Integer, ItemDto> getAll() { return csvDao.getAll(); }
 
-    @Override
+
+
     public void decrementStock(int itemId) {
 
     }
 
-    @Override
     public boolean verifyEnoughMoney() {
         return false;
     }
 
-    @Override
     public void returnChange() {
 
     }

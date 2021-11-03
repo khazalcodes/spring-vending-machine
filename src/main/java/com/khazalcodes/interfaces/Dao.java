@@ -5,8 +5,10 @@ import com.khazalcodes.ItemDto;
 import java.util.List;
 import java.util.Map;
 
-public interface Dao {
+public interface Dao<T> {
     void readDb();
     void saveDb();
-    Dto recordAsDto(List<String> record);
+
+    Map<Integer, T> getAll();
+    T get(int id);
 }

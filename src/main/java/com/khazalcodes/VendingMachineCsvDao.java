@@ -8,38 +8,33 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class VendingMachineCsvDao implements Dao {
+public class VendingMachineCsvDao implements Dao<ItemDto> {
 
     private static final Path DB_PATH = Path.of("./src/main/resources/vending-machine-items.csv");
     private static final StringBuilder updatedDb = new StringBuilder();
 
     private final Map<Integer, ItemDto> itemsHashMap = new HashMap<>();
+
     public VendingMachineCsvDao() {
         readDb();
     }
 
-    public Map<Integer, ItemDto> getItemsMap() {
-        Map<Integer, ItemDto> itemsHashMap = new HashMap<>();
-        List<List<String>> itemStringsList;
-        List<String> fileLines;
-
-        try {
-            fileLines = Files.readAllLines(DB_PATH);
-        } catch (IOException e) {
-            System.out.println("File could not be read. Check if path is correct");
-            return null;
+    @Override
+    public Map<Integer, ItemDto> getAll() {
+        if (itemsHashMap.isEmpty()) {
+            readDb();
         }
 
-        itemStringsList = fileLines.stream()
-                .map(line -> Arrays.asList(line.split(",")))
-                .collect(Collectors.toList());
-
-        itemStringsList.stream()
-                .map(this::recordAsDto)
-                .forEach(itemDto -> itemsHashMap.put(itemDto.getKey(), itemDto));
-
         return itemsHashMap;
+
     }
+
+    /**
+     * Get a single ItemDto
+     * // TODO make a null check in the business layer
+     * */
+    @Override
+    public ItemDto get(int id) { return itemsHashMap.get(id);  }
 
     @Override
      public void readDb() {
@@ -77,7 +72,7 @@ public class VendingMachineCsvDao implements Dao {
         }
     }
 
-    private static void appendToUpdatedLibrary(ItemDto itemDto) {
+    private void appendToUpdatedLibrary(ItemDto itemDto) {
         String sep = ",";
 
         updatedDb.append(itemDto.getName()).append(sep)
@@ -85,8 +80,7 @@ public class VendingMachineCsvDao implements Dao {
                 .append(itemDto.getStockRemaining()).append(System.lineSeparator());
     }
 
-    @Override
-    public ItemDto recordAsDto(List<String> itemDetails) {
+    private ItemDto recordAsDto(List<String> itemDetails) {
         String name = itemDetails.get(0);
         String price = itemDetails.get(1);
         String stockRemaining = itemDetails.get(2);
