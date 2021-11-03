@@ -10,24 +10,22 @@ import com.khazalcodes.interfaces.base.Action;
  * all of the Menu specific details of showing and converting to the corresponding Action enum.
  * */
 public enum VendingMenu implements ActionMenu {
-    HOME {
-        @Override
-        public void show() {
-            System.out.println("\n1. Buy an item\n2. quit");
-        }
+    HOME("\n1. Buy an item\n2. quit") {
         @Override
         public Action getMenuAction(int userInput) throws NonExistantActionException {
             return HomeAction.fromInt(userInput);
         }
     },
-    INSERT_COIN {
-        @Override
-        public void show() {
-            System.out.println("\n1. 1p\n2. 2p\n3. 5p\n4. 10p\n5. 20p\n6. 50p\n7. £1\n8.  £2\n9. Finish\n");
-        }
+    INSERT_COIN("\n1. 1p\n2. 2p\n3. 5p\n4. 10p\n5. 20p\n6. 50p\n7. £1\n8.  £2\n9. Finish\n") {
         @Override
         public Action getMenuAction(int userInput) throws NonExistantActionException {
             return CoinAction.fromInt(userInput);
         }
     };
+
+    public String Text;
+
+    VendingMenu(String text) {
+        this.Text = text;
+    }
 }

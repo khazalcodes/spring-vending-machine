@@ -11,9 +11,9 @@ public enum HomeAction implements Action {
     BUY(1),
     QUIT(2);
 
-    public final int IntValue;
+    public final int Id;
 
-    HomeAction(int value) { this.IntValue = value; }
+    HomeAction(int value) { this.Id = value; }
 
     /**
      * This design pattern was sourced from here: http://dan.clarke.name/2011/07/enum-in-java-with-int-conversion/
@@ -25,7 +25,7 @@ public enum HomeAction implements Action {
      * we want to convert and uses the parameter as the key to retrieve the enum we want to return.
      * */
     private static final Map<Integer, HomeAction> map = new HashMap<>();
-    static { Arrays.stream(HomeAction.values()).forEach(e -> map.put(e.IntValue, e)); }
+    static { Arrays.stream(HomeAction.values()).forEach(e -> map.put(e.Id, e)); }
 
     public static HomeAction fromInt(int value) throws NonExistantActionException {
         if (!map.containsKey(value)) {

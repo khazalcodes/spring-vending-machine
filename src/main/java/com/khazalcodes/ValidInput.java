@@ -25,7 +25,7 @@ public class ValidInput {
             } catch (NonExistantActionException e) {
                 System.out.println(e.getMessage());;
                 System.out.println(INVALID_INPUT_INPUT_MESSAGE);
-                menu.show();
+                System.out.println(menu.Text);
             }
         }
 

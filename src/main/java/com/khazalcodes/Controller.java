@@ -1,5 +1,6 @@
 package com.khazalcodes;
 
+import com.khazalcodes.enums.CoinAction;
 import com.khazalcodes.enums.HomeAction;
 import com.khazalcodes.enums.VendingMenu;
 import com.khazalcodes.interfaces.base.Action;
@@ -9,29 +10,50 @@ import java.util.ArrayList;
 public class Controller {
 
     private final View view;
-    private final VendingMachineService service;
+    private final VendingMachineService vendingMachinService;
+    private final UserBalanceService userBalanceService;
 
-    public Controller (View view, VendingMachineService service) {
+    public Controller (View view, VendingMachineService vendingMachineService,
+                       UserBalanceService userBalanceService) {
         this.view = view;
-        this.service = service;
+        this.vendingMachinService = vendingMachineService;
+        this.userBalanceService = userBalanceService;
     }
 
     // TODO Try introducing invalid choice exception
 
     public void startVending() {
-        View.welcomeMessage();
+        view.welcomeMessage();
 
         while (true) {
-            view.displayItems(new ArrayList<>(service.getAll().values()));
-            Action userChoice = view.menu(VendingMenu.HOME);
+            view.displayItems(new ArrayList<>(vendingMachinService.getAll().values()));
+            Action homeAction = view.menu(VendingMenu.HOME);
 
-            if (userChoice == HomeAction.QUIT) {
+            if (homeAction == HomeAction.QUIT) {
                 break;
+            }
+
+            boolean userWantsToInsertCoins = true;
+
+
+
+
+            while (userWantsToInsertCoins) {
+
+                view.insertCoinsMessage();
+                Action coinAction = view.menu(VendingMenu.INSERT_COIN);
+
+                if (coinAction == CoinAction.FINISH) {
+                    // pick item - must be part of user balance toBuy itemDto
+                    // check sufficient funds
+                    // if yes break, if no then display price, balance, remaining and menu again
+                }
+
             }
         }
 
-        View.goodbyeMessage();
-        service.saveDb();
+        view.goodbyeMessage();
+        vendingMachinService.saveDb();
     }
 
 }

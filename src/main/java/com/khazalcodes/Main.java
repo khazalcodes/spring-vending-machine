@@ -4,8 +4,12 @@ public class Main {
     public static void main(String[] args) {
         View view = new View();
         VendingMachineCsvDao csvDao = new VendingMachineCsvDao();
-        VendingMachineService service = new VendingMachineService(csvDao);
-        Controller controller = new Controller(view, service);
+        VendingMachineService vendingMachineService = new VendingMachineService(csvDao);
+        UserBalanceService userBalanceService = new UserBalanceService();
+
+        Controller controller = new Controller(view, vendingMachineService,
+                userBalanceService);
+
         controller.startVending();
     }
 }
