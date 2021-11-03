@@ -19,25 +19,7 @@ public class VendingMachineCsvDao implements Dao<ItemDto> {
         readDb();
     }
 
-    @Override
-    public Map<Integer, ItemDto> getAll() {
-        if (itemsHashMap.isEmpty()) {
-            readDb();
-        }
-
-        return itemsHashMap;
-
-    }
-
-    /**
-     * Get a single ItemDto
-     * // TODO make a null check in the business layer
-     * */
-    @Override
-    public ItemDto get(int id) { return itemsHashMap.get(id);  }
-
-    @Override
-     public void readDb() {
+    private void readDb() {
         List<List<String>> itemStringsList;
         List<String> fileLines;
 
@@ -53,9 +35,34 @@ public class VendingMachineCsvDao implements Dao<ItemDto> {
                 .collect(Collectors.toList());
 
         itemStringsList.stream()
-                .map(this::recordAsDto)
+                .map(this::csvLineAsDto)
                 .forEach(itemDto -> itemsHashMap.put(itemDto.getKey(), itemDto));
     }
+
+    private ItemDto csvLineAsDto(List<String> itemDetails) {
+        String name = itemDetails.get(0);
+        String price = itemDetails.get(1);
+        String stockRemaining = itemDetails.get(2);
+
+        return new ItemDto(name, price, stockRemaining);
+    }
+
+    public Path getDbPath() { return DB_PATH; }
+
+    @Override
+    public Map<Integer, ItemDto> getAll() {
+        if (itemsHashMap.isEmpty()) {
+            readDb();
+        }
+
+        return itemsHashMap;
+    }
+
+    /**
+     * Get a single ItemDto
+     * */
+    @Override
+    public ItemDto get(int id) { return itemsHashMap.get(id);  }
 
     @Override
     public void saveDb() {
@@ -72,14 +79,5 @@ public class VendingMachineCsvDao implements Dao<ItemDto> {
         }
     }
 
-    private ItemDto recordAsDto(List<String> itemDetails) {
-        String name = itemDetails.get(0);
-        String price = itemDetails.get(1);
-        String stockRemaining = itemDetails.get(2);
 
-        return new ItemDto(name, price, stockRemaining);
-
-    }
-
-    public Path getDbPath() { return DB_PATH; }
 }

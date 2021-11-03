@@ -61,9 +61,9 @@ public class ItemDto implements Dto {
 
     public void setPrice(BigDecimal price) { this.price = price; }
 
-    public int getStockRemaining() {
-        return stockRemaining;
-    }
+    public int getStockRemaining() { return stockRemaining; }
+
+    public void decrementStock() { this.stockRemaining--; }
 
     public void restock() { this.stockRemaining += 10; }
 
