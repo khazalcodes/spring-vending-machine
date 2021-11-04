@@ -36,10 +36,14 @@ public class View {
         displayItems(new ArrayList<>(items.values()));
 
 
-        return ValidInput.item(items);
+        return ValidInput.item(items, itemsText(new ArrayList<>(items.values())));
     }
 
     public void displayItems(List<ItemDto> items) {
         items.forEach(value -> System.out.println(value.toString()));
+    }
+
+    public String itemsText (List<ItemDto> items) {
+        return items.stream().map(ItemDto::toString).collect(Collectors.joining("\n"));
     }
 }

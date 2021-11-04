@@ -38,21 +38,22 @@ public class ValidInput {
     }
 
     /**
-     * Working on the assumption that items are indexed from 0
+     * Defining this function took a lot of will power. I hate it. I dont like the fact that I am passing
      * */
-    public static int item(Map<Integer, ItemDto> items) throws NoItemInventoryException{
+    public static int item(Map<Integer, ItemDto> items, String itemsText) {
+        int itemId;
 
+        while (true) {
+            itemId = UserInput.asInt();
+            ItemDto itemToGet = items.get(itemId);
 
-        intitemId = UserInput.asInt();
+            if (itemHasStock(itemToGet)) {
+                break;
+            }
 
-        ItemDto itemToGet = items.get(itemId);
-
-        if (itemHasStock(itemToGet)) {
-            return itemId;
+            System.out.println(INVALID_INPUT_INPUT_MESSAGE);
+            System.out.println(itemsText);
         }
-
-
-
 
         return itemId;
     }

@@ -33,9 +33,6 @@ public class Controller {
 
             boolean userWantsToInsertCoins = true;
 
-
-
-
             while (userWantsToInsertCoins) {
                 view.insertCoinsMessage();
                 Action coinAction = view.menu(VendingMenu.INSERT_COIN);
