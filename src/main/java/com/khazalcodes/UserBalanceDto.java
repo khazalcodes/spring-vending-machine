@@ -18,5 +18,4 @@ public class UserBalanceDto {
     public void decrementBalance(double value) {
         balance = balance.subtract(new BigDecimal(value));
     }
-
 }

@@ -2,6 +2,8 @@ package com.khazalcodes;
 
 import com.khazalcodes.interfaces.DbService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class VendingMachineService implements DbService<ItemDto> {
@@ -17,7 +19,10 @@ public class VendingMachineService implements DbService<ItemDto> {
     public void returnChange() { }
 
     @Override
-    public Map<Integer, ItemDto> getAll() { return csvDao.getAll(); }
+    public List<ItemDto> getAll() { return new ArrayList<>(csvDao.getAll().values()); }
+
+    @Override
+    public Map<Integer, ItemDto> getAllAsMap() { return csvDao.getAll(); }
 
     @Override
     public ItemDto get(int id) { return csvDao.get(id); }
