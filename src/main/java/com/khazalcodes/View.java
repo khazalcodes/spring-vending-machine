@@ -1,8 +1,11 @@
 package com.khazalcodes;
 
+import com.khazalcodes.enums.CoinAction;
 import com.khazalcodes.enums.VendingMenu;
 import com.khazalcodes.interfaces.base.Action;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,11 +19,16 @@ public class View {
     private static final String ENTER_CHOICE = "Enter the number of the corresponding action you wish to take:";
     private static final String PICK_ITEM = "Please choose the item you wish to purchase by entering its number number " +
             "eg. 5. walkers ... -> Enter the number 5";
+    private static final String CURRENT_BALANCE = "Your current balance is:\t£";
+    private static final String HAVE_CHANGE = "Here, take your change\n";
 
 
     public void welcomeMessage() { System.out.println(WELCOME_MESSAGE); }
     public void goodbyeMessage() { System.out.println(GOODBYE_MESSAGE); }
     public void insertCoinsMessage() { System.out.println(INSERT_COINS_MESSAGE); }
+    public void currentBalance(String balance) {
+        System.out.println(CURRENT_BALANCE + balance);
+    }
 
 
 
@@ -41,6 +49,11 @@ public class View {
 
     public void displayItems(List<ItemDto> items) {
         items.forEach(value -> System.out.println(value.toString()));
+    }
+
+    public void displayChange(List<CoinAction> change) {
+        System.out.println(HAVE_CHANGE);
+        change.forEach(System.out::println);
     }
 
     public String itemsText (List<ItemDto> items) {

@@ -16,7 +16,7 @@ public enum VendingMenu implements ActionMenu {
             return HomeAction.fromInt(userInput);
         }
     },
-    INSERT_COIN("\n1. 1p\n2. 2p\n3. 5p\n4. 10p\n5. 20p\n6. 50p\n7. £1\n8.  £2\n9. Finish\n") {
+    INSERT_COIN("\n1. £2\n2. £1\n3. 50p\n4. 20p\n5. 10p\n6. 5p\n7. 2p\n8. 1p\n9. Finish\n") {
         @Override
         public Action getMenuAction(int userInput) throws NonExistantActionException {
             return CoinAction.fromInt(userInput);

@@ -5,17 +5,18 @@ import java.math.RoundingMode;
 
 public class UserBalanceDto {
     private BigDecimal balance;
+
     public UserBalanceDto() {
-        balance = new BigDecimal(0).setScale(2, RoundingMode.UNNECESSARY);
+        balance = new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
     }
 
-    public BigDecimal getBalance() { return balance; }
+    public BigDecimal get() { return balance.setScale(2, RoundingMode.HALF_UP); }
 
-    public void incrementBalance(double value) {
-        balance = balance.add(new BigDecimal(value));
+    public void increase(double value) {
+        balance = balance.add(new BigDecimal(value)).setScale(2, RoundingMode.HALF_UP);
     }
 
     public void decrementBalance(double value) {
-        balance = balance.subtract(new BigDecimal(value));
+        balance = balance.subtract(new BigDecimal(value)).setScale(2, RoundingMode.HALF_UP);
     }
 }

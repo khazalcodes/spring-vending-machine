@@ -7,23 +7,23 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum CoinAction implements Action {
-    ONE_P(1, 0.01),
-    TWO_P(2, 0.02),
-    FIVE_P(3, 0.05),
-    TEN_P(4, 0.10),
-    TWENTY_P(5, 0.20),
-    FIFTY_P(6, 0.50),
-    ONE_POUND(7, 1.00),
-    TWO_POUNDS(8, 2.00),
+public enum CoinAction implements Action{
+    TWO_POUNDS(1, 2.00),
+    ONE_POUND(2, 1.00),
+    FIFTY_P(3, 0.50),
+    TWENTY_P(4, 0.20),
+    TEN_P(5, 0.10),
+    FIVE_P(6, 0.05),
+    TWO_P(7, 0.02),
+    ONE_P(8, 0.01),
     FINISH(9, -0.00);
 
     public final int Id;
-    public final double Worth;
+    public final double Value;
 
     CoinAction(int id, double worth) {
         this.Id = id;
-        this.Worth = worth;
+        this.Value = worth;
     }
 
     /**
