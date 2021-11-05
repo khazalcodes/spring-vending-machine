@@ -3,19 +3,29 @@ package com.khazalcodes;
 import com.khazalcodes.enums.CoinAction;
 import com.khazalcodes.exceptions.InsufficientFundsException;
 import com.khazalcodes.interfaces.base.Service;
-import com.sun.jdi.Value;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * The service responsible for keeping track of the user's coin balance and returning change.
+ * It does this through the UserBalanceDto.
+ * Various methods are defined that interact with the Dto's methods.
+ * The two big boys are the calculateChange and getChange methods.
+ *
+ * calculateChange will receive the prices of the item picked by the user and then subtract that from the user's balance.
+ * If the value is positive, change is due, that value is recorded in the changeDue variable (which is used later) and
+ * then changeDue is returned to the controller. Otherwise, an Insifficient funds exception is returned with appropriate text.
+ *
+ * getChange will
+ *
+ * */
 public class UserBalanceService implements Service {
     private static final DecimalFormat df = new DecimalFormat("###.##");
     private final UserBalanceDto userBalance;
     private double changeDue;
-
 
     public UserBalanceService() {
         userBalance = new UserBalanceDto();
@@ -29,24 +39,24 @@ public class UserBalanceService implements Service {
         return userBalance.get();
     }
 
-    public String getBalanceAsString() {
-        return df.format(userBalance.get().doubleValue());
-    }
+    public String getBalanceAsString() { return df.format(userBalance.get().doubleValue()); }
 
-    public double calculateChange(BigDecimal itemPrice) throws InsufficientFundsException {
-        BigDecimal change =  userBalance.get().subtract(itemPrice);
+    public void clearBalance() { userBalance.clear(); }
 
+    public void calculateChange(BigDecimal itemPrice) throws InsufficientFundsException {
+
+        BigDecimal change = getBalance().subtract(itemPrice).setScale(2, RoundingMode.HALF_UP);
         if (change.signum() >= 0) {
-            changeDue = change.doubleValue();
-            return changeDue;
+            changeDue = change.doubleValue(); // The change value is copied to changeDue instead of being returned directly as this will be used later
+            return;
         }
 
         throw new InsufficientFundsException(String.format("You didn't put enough money into the machine for this item.\n" +
-                "Your current balance is %s\nThe price of the item you chose costs %s\n Please put in at least %s to" +
+                "Your current balance is £%s\nThe price of the item you chose costs £%s\nPlease put in at least £%s to" +
                 "purchase this item.\n",
                 df.format(userBalance.get().doubleValue()),
                 df.format(itemPrice.doubleValue()),
-                df.format(BigDecimal.valueOf(0).subtract(change).doubleValue())));
+                df.format(BigDecimal.valueOf(0).subtract(change).doubleValue()))); // We subtract because the change is negative
     }
 
     public List<CoinAction> getChange() {
@@ -58,24 +68,17 @@ public class UserBalanceService implements Service {
                 .sorted()
                 .collect(Collectors.toCollection(LinkedList::new));
 
+        validCoins.forEach(System.out::println);
 
-        CoinAction head = validCoins.peek();
+        while (!validCoins.isEmpty() && changeDue > 0) {
+            CoinAction head = validCoins.peek();
 
-        while (changeDue > 0 && head != null) {
-
-            System.out.println("Head is " + head.Value);
-            changeDue -= head.Value;
-            change.add(head);
-
-            while (head.Value >= changeDue) {
+            if (head.Value > changeDue) {
                 validCoins.poll();
-                if (validCoins.size() > 0) {
-                    head = validCoins.peek();
-                } else {
-                    break;
-                }
+            } else {
+                changeDue -= head.Value;
+                change.add(head);
             }
-
         }
 
         return change;

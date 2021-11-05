@@ -3,6 +3,11 @@ package com.khazalcodes;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+/**
+ * This Dto is used solely for holding the state of the total value of coins that the user put in.
+ * Everytime the user enters a coin, an instance of this object that is assigned to the userBalanceService is updated
+ * with the increase method.
+ * */
 public class UserBalanceDto {
     private BigDecimal balance;
 
@@ -16,7 +21,5 @@ public class UserBalanceDto {
         balance = balance.add(new BigDecimal(value)).setScale(2, RoundingMode.HALF_UP);
     }
 
-    public void decrementBalance(double value) {
-        balance = balance.subtract(new BigDecimal(value)).setScale(2, RoundingMode.HALF_UP);
-    }
+    public void clear() { balance = BigDecimal.valueOf(0); }
 }

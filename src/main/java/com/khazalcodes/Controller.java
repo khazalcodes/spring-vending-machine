@@ -21,15 +21,23 @@ public class Controller {
         this.userBalanceService = userBalanceService;
     }
 
-    // TODO Try introducing invalid choice exception
 
-    public void startVending() {
+    /**
+     * The vending machine welcomes the user, displays the items, then enters the maine while loop, which will
+     * only terminate if the user chooses exit.
+     *
+     * If the user wishes to buy something, they must first enter some coins. Another while loop is entered that polls
+     * for input about which coin the user wants to insert. The loop will add the value of the coin inserted to the
+     * user's balance until the user enters 9 - Finish.
+     *
+     * The code will then ask the user to pick an item from the vending machine. If the
+     * */
+    public void vend() {
         view.welcomeMessage();
+        view.displayItems(vendingMachineService.getAll());
 
         while (true) {
-            view.displayItems(vendingMachineService.getAll());
             Action homeAction = view.menu(VendingMenu.HOME);
-
 
             if (homeAction == HomeAction.QUIT) {
                 break;
@@ -44,9 +52,7 @@ public class Controller {
                     int itemId = view.pickItem(vendingMachineService.getAllAsMap());
 
                     try {
-                        double changeDue = userBalanceService.calculateChange(
-                                vendingMachineService.get(itemId).getPrice());
-
+                        userBalanceService.calculateChange(vendingMachineService.get(itemId).getPrice());
                         vendingMachineService.decrementStock(itemId);
                         userWantsToInsertCoins = false;
                     } catch (InsufficientFundsException e) {
@@ -58,6 +64,7 @@ public class Controller {
                 }
             }
             view.displayChange(userBalanceService.getChange());
+            userBalanceService.clearBalance();
         }
 
         view.goodbyeMessage();
