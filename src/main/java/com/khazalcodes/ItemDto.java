@@ -43,35 +43,22 @@ public class ItemDto implements DbDto {
     @Override
     public int getKey() { return key; }
 
-    public static int getCurrentlyAvailableKey() {
-        return CURRENTLY_AVAILABLE_KEY;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) { this.price = price; }
-
     public int getStockRemaining() { return stockRemaining; }
 
     public void decrementStock() { this.stockRemaining--; }
-
-    public void restock() { this.stockRemaining += 10; }
 
     public String toCsvString() {
         String sep = ",";
         return name + sep + price.toString() + sep + stockRemaining + System.lineSeparator();
     }
-
 
     public boolean isDisplayable() {
         return (!this.price.equals(BigDecimal.valueOf(INVALID_NUMBER))  &&

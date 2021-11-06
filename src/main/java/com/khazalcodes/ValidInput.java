@@ -38,7 +38,9 @@ public class ValidInput {
     }
 
     /**
-     * Defining this function took a lot of will power. I hate it. I dont like the fact that I am passing
+     * Defining this function took a lot of will power. It goes against the idea that I managed to pull off with the
+     * abstracted menus but since this was not a menu but a variable collection of items, a custom function needed to be
+     * made.
      * */
     public static int item(Map<Integer, ItemDto> items, String itemsText) {
         int itemId;

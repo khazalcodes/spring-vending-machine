@@ -30,7 +30,11 @@ public class Controller {
      * for input about which coin the user wants to insert. The loop will add the value of the coin inserted to the
      * user's balance until the user enters 9 - Finish.
      *
-     * The code will then ask the user to pick an item from the vending machine. If the
+     * The code will then ask the user to pick an item from the vending machine. If the item has a greater value than the
+     * users, balance, the user will be asked to put coins in again until they press 9 which will initiate the same check again.
+     * Once the user has enough funds, the item will be vended along with any change that the user is due.
+     *
+     * The loop will repeat thereafter but if the user decides to exit, a good bye message will display and the program will exit.
      * */
     public void vend() {
         view.welcomeMessage();

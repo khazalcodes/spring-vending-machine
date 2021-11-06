@@ -19,8 +19,10 @@ import java.util.stream.Collectors;
  * If the value is positive, change is due, that value is recorded in the changeDue variable (which is used later) and
  * then changeDue is returned to the controller. Otherwise, an Insifficient funds exception is returned with appropriate text.
  *
- * getChange will
- *
+ * getChange will return a list of CoinActions which will be output to the screen and shown as the user's change.
+ * This occurs through getting all coins whos values are less than or equal to the changeDue and putting them into a
+ * queue with the most valuable coin first. It will then iterate over that queue, decreasing the value of changeDue and
+ * adding that coin to the change list until there is no more change after which it returns.
  * */
 public class UserBalanceService implements Service {
     private static final DecimalFormat df = new DecimalFormat("###.##");

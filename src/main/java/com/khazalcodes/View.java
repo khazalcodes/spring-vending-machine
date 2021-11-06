@@ -4,8 +4,6 @@ import com.khazalcodes.enums.CoinAction;
 import com.khazalcodes.enums.VendingMenu;
 import com.khazalcodes.interfaces.base.Action;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +46,7 @@ public class View {
     }
 
     public void displayItems(List<ItemDto> items) {
-        items.forEach(value -> System.out.println(value.toString()));
+        items.stream().filter(ItemDto::isDisplayable).forEach(System.out::println);
     }
 
     public void displayChange(List<CoinAction> change) {

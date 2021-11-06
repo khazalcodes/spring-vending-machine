@@ -2,11 +2,14 @@ package com.khazalcodes.enums;
 
 import com.khazalcodes.exceptions.NonExistantActionException;
 import com.khazalcodes.interfaces.base.Action;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A coin action must not only represent the a numbered choice but also the value of the coin in choosing. Therefore,
+ * this class contains a Value field which can be accessed to return the enum's monetary value
+ * */
 public enum CoinAction implements Action{
     TWO_POUNDS(1, 2.00),
     ONE_POUND(2, 1.00),

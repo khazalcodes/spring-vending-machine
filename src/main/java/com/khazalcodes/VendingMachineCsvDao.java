@@ -8,6 +8,14 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Very similar to the Dao in the DVD library project. A bit more tidy perhaps. File is read, converted to lines,
+ * those lines are converted to String arrays split by comma, thos string arrays are converted to Dto and those Dtos are
+ * stored into a hashMap which is the live version of the data that gets passed to the service and vv.
+ * That biggest vulnerability here is the manual translation of String arr to Dto. Because there is no db to work with,
+ * we can't do much about that unfortunately.
+ * Db gets saved by converting the hasmap back to a csv file again.
+ * */
 public class VendingMachineCsvDao implements Dao<ItemDto> {
 
     private static final Path DB_PATH = Path.of("./src/main/resources/vending-machine-items.csv");

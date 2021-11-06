@@ -14,10 +14,6 @@ public class VendingMachineService implements DbService<ItemDto> {
 
     public void decrementStock(int id) { csvDao.get(id).decrementStock(); }
 
-    public boolean verifyEnoughMoney() { return false; }
-
-    public void returnChange() { }
-
     @Override
     public List<ItemDto> getAll() { return new ArrayList<>(csvDao.getAll().values()); }
 
