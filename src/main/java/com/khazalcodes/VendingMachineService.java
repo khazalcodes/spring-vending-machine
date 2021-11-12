@@ -1,5 +1,6 @@
 package com.khazalcodes;
 
+import com.khazalcodes.interfaces.Dao;
 import com.khazalcodes.interfaces.DbService;
 
 import java.util.ArrayList;
@@ -8,9 +9,9 @@ import java.util.Map;
 
 public class VendingMachineService implements DbService<ItemDto> {
 
-    private final VendingMachineCsvDao csvDao;
+    private final Dao<ItemDto> csvDao;
 
-    public VendingMachineService(VendingMachineCsvDao csvDao) { this.csvDao = csvDao; }
+    public VendingMachineService(Dao<ItemDto> csvDao) { this.csvDao = csvDao; }
 
     public void decrementStock(int id) { csvDao.get(id).decrementStock(); }
 
