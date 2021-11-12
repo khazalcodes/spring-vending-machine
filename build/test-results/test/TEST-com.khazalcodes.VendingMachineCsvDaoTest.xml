@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.khazalcodes.VendingMachineCsvDaoTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-10-31T23:01:02" hostname="nona" time="0.03">
-  <properties/>
-  <testcase name="getDbAsMap()" classname="com.khazalcodes.VendingMachineCsvDaoTest" time="0.03"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
