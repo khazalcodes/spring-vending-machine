@@ -3,12 +3,14 @@ package com.khazalcodes;
 import com.khazalcodes.enums.CoinAction;
 import com.khazalcodes.enums.VendingMenu;
 import com.khazalcodes.interfaces.base.Action;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Component
 public class View {
     private static final String WELCOME_MESSAGE = "Welcome to the vending machine. Here are all of the vendables you can buy today:\n";
     private static final String GOODBYE_MESSAGE = "Thanks for vending. See you soon";

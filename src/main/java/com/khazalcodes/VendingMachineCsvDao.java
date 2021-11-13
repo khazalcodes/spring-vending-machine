@@ -1,6 +1,7 @@
 package com.khazalcodes;
 
 import com.khazalcodes.interfaces.Dao;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
  * we can't do much about that unfortunately.
  * Db gets saved by converting the hasmap back to a csv file again.
  * */
-
+@Component
 public class VendingMachineCsvDao implements Dao<ItemDto> {
 
     private static final Path DB_PATH = Path.of("./src/main/resources/vending-machine-items.csv");

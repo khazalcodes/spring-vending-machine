@@ -5,15 +5,19 @@ import com.khazalcodes.enums.HomeAction;
 import com.khazalcodes.enums.VendingMenu;
 import com.khazalcodes.exceptions.InsufficientFundsException;
 import com.khazalcodes.interfaces.base.Action;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
+@Component
 public class Controller {
 
     private final View view;
     private final VendingMachineService vendingMachineService;
     private final UserBalanceService userBalanceService;
 
+    @Autowired
     public Controller (View view, VendingMachineService vendingMachineService,
                        UserBalanceService userBalanceService) {
         this.view = view;

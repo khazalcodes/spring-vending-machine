@@ -3,6 +3,8 @@ package com.khazalcodes;
 import com.khazalcodes.enums.CoinAction;
 import com.khazalcodes.exceptions.InsufficientFundsException;
 import com.khazalcodes.interfaces.base.Service;
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
  * queue with the most valuable coin first. It will then iterate over that queue, decreasing the value of changeDue and
  * adding that coin to the change list until there is no more change after which it returns.
  * */
+@Component
 public class UserBalanceService implements Service {
     private static final DecimalFormat df = new DecimalFormat("###.##");
     private final UserBalanceDto userBalance;

@@ -1,5 +1,9 @@
 package com.khazalcodes;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import java.util.Arrays;
+
 public class Main {
 /**
  * Due to time constraints, I have not implemented the Unit tests nor did I do the AuditDao. My main focus here was to
@@ -10,13 +14,11 @@ public class Main {
  * pass the view and services on to the controller which will then begin the vending machine.
  * */
     public static void main(String[] args) {
-        View view = new View();
-        VendingMachineCsvDao csvDao = new VendingMachineCsvDao();
-        VendingMachineService vendingMachineService = new VendingMachineService(csvDao);
-        UserBalanceService userBalanceService = new UserBalanceService();
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
+        applicationContext.scan("com.khazalcodes");
+        applicationContext.refresh();
 
-        Controller controller = new Controller(view, vendingMachineService,
-                userBalanceService);
+        Controller controller = applicationContext.getBean("controller", Controller.class);
 
         controller.vend();
     }

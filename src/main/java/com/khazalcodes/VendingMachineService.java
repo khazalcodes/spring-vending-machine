@@ -2,15 +2,18 @@ package com.khazalcodes;
 
 import com.khazalcodes.interfaces.Dao;
 import com.khazalcodes.interfaces.DbService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+@Component
 public class VendingMachineService implements DbService<ItemDto> {
 
     private final Dao<ItemDto> csvDao;
 
+    @Autowired
     public VendingMachineService(Dao<ItemDto> csvDao) { this.csvDao = csvDao; }
 
     public void decrementStock(int id) { csvDao.get(id).decrementStock(); }
