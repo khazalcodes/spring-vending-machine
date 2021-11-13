@@ -1,5 +1,7 @@
 package com.khazalcodes;
 
+import com.khazalcodes.interfaces.base.Dto;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -8,7 +10,8 @@ import java.math.RoundingMode;
  * Everytime the user enters a coin, an instance of this object that is assigned to the userBalanceService is updated
  * with the increase method.
  * */
-public class UserBalanceDto {
+
+public class UserBalanceDto implements Dto {
     private BigDecimal balance;
 
     public UserBalanceDto() {

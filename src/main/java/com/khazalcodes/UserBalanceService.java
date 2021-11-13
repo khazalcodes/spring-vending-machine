@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 public class UserBalanceService implements Service {
     private static final DecimalFormat df = new DecimalFormat("###.##");
     private final UserBalanceDto userBalance;
-    private double changeDue;
+    private BigDecimal changeDue;
 
     public UserBalanceService() {
         userBalance = new UserBalanceDto();
@@ -49,7 +49,7 @@ public class UserBalanceService implements Service {
 
         BigDecimal change = getBalance().subtract(itemPrice).setScale(2, RoundingMode.HALF_UP);
         if (change.signum() >= 0) {
-            changeDue = change.doubleValue(); // The change value is copied to changeDue instead of being returned directly as this will be used later
+            changeDue = change; // The change value is copied to changeDue instead of being returned directly as this will be used later
             return;
         }
 
@@ -66,19 +66,19 @@ public class UserBalanceService implements Service {
 
         Queue<CoinAction> validCoins =  Arrays.stream(CoinAction.values())
                 .filter(c -> c.Value != CoinAction.FINISH.Value)
-                .filter(c -> c.Value <= changeDue)
+                .filter(c -> c.Value <= changeDue.doubleValue())
                 .sorted()
                 .collect(Collectors.toCollection(LinkedList::new));
 
         validCoins.forEach(System.out::println);
 
-        while (!validCoins.isEmpty() && changeDue > 0) {
+        while (!validCoins.isEmpty()) {
             CoinAction head = validCoins.peek();
 
-            if (head.Value > changeDue) {
+            if (head.Value > changeDue.doubleValue()) {
                 validCoins.poll();
             } else {
-                changeDue -= head.Value;
+                changeDue = changeDue.subtract(BigDecimal.valueOf(head.Value)).setScale(2, RoundingMode.HALF_UP);
                 change.add(head);
             }
         }

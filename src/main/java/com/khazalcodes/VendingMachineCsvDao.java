@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
  * we can't do much about that unfortunately.
  * Db gets saved by converting the hasmap back to a csv file again.
  * */
+
 public class VendingMachineCsvDao implements Dao<ItemDto> {
 
     private static final Path DB_PATH = Path.of("./src/main/resources/vending-machine-items.csv");

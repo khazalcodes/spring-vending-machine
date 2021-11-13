@@ -3,6 +3,7 @@ package com.khazalcodes;
 import com.khazalcodes.interfaces.DbDto;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class ItemDto implements DbDto {
 
@@ -19,7 +20,7 @@ public class ItemDto implements DbDto {
         this.name = name;
 
         try {
-            this.price = new BigDecimal(price);
+            this.price = new BigDecimal(price).setScale(2, RoundingMode.HALF_UP);
         } catch (NumberFormatException e) {
             System.out.printf("Invalid price in db for %s... Setting price to -1", name);
             this.price = BigDecimal.valueOf(INVALID_NUMBER);
