@@ -8,8 +8,6 @@ import com.khazalcodes.interfaces.base.Action;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-
 @Component
 public class Controller {
 
@@ -42,20 +40,18 @@ public class Controller {
      * */
     public void vend() {
         view.welcomeMessage();
-        view.displayItems(vendingMachineService.getAll());
+        boolean noItems = view.displayItems(vendingMachineService.getAll());
 
-        while (true) {
-            Action homeAction = view.menu(VendingMenu.HOME);
+        if (noItems) {
+            return;
+        }
 
-            if (homeAction == HomeAction.QUIT) {
-                break;
-            }
-
+        while (userWantsToBuy()) {
             boolean userWantsToInsertCoins = true;
 
             while (userWantsToInsertCoins) {
                 view.insertCoinsMessage();
-                CoinAction coinAction = (CoinAction) view.menu(VendingMenu.INSERT_COIN);
+                CoinAction coinAction = (CoinAction) view.getMenuAction(VendingMenu.INSERT_COIN);
                 if (coinAction == CoinAction.FINISH) {
                     int itemId = view.pickItem(vendingMachineService.getAllAsMap());
 
@@ -79,4 +75,8 @@ public class Controller {
         vendingMachineService.saveDb();
     }
 
+    private boolean userWantsToBuy() {
+        Action homeAction = view.getMenuAction(VendingMenu.HOME);
+        return homeAction == HomeAction.BUY;
+    }
 }

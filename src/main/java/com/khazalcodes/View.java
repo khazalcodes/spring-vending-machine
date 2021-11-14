@@ -32,7 +32,7 @@ public class View {
 
 
 
-    public Action menu(VendingMenu menu)  {
+    public Action getMenuAction(VendingMenu menu)  {
         System.out.println("\n" + ENTER_CHOICE);
         System.out.println(menu.Text);
 
@@ -47,8 +47,11 @@ public class View {
         return ValidInput.item(items, itemsText(new ArrayList<>(items.values())));
     }
 
-    public void displayItems(List<ItemDto> items) {
+    public boolean displayItems(List<ItemDto> items) {
+        boolean noItems = items.isEmpty();
         items.stream().filter(ItemDto::isDisplayable).forEach(System.out::println);
+
+        return noItems;
     }
 
     public void displayChange(List<CoinAction> change) {

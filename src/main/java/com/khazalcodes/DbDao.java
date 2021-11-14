@@ -4,6 +4,7 @@ import com.khazalcodes.interfaces.Dao;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Component
@@ -16,7 +17,7 @@ public class DbDao implements Dao<ItemDto> {
 
     @Override
     public Map<Integer, ItemDto> getAll() {
-        return null;
+        return new HashMap<>();
     }
 
     @Override
