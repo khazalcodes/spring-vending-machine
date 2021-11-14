@@ -1,6 +1,7 @@
 package com.khazalcodes;
 
 import com.khazalcodes.interfaces.Dao;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -18,14 +19,15 @@ import java.util.stream.Collectors;
  * Db gets saved by converting the hasmap back to a csv file again.
  * */
 @Component
-public class VendingMachineCsvDao implements Dao<ItemDto> {
+@Qualifier("csvDao")
+public class CsvDao implements Dao<ItemDto> {
 
     private static final Path DB_PATH = Path.of("./src/main/resources/vending-machine-items.csv");
     private static final StringBuilder updatedDb = new StringBuilder();
 
     private final Map<Integer, ItemDto> itemsHashMap = new HashMap<>();
 
-    public VendingMachineCsvDao() {
+    public CsvDao() {
         readDb();
     }
 
