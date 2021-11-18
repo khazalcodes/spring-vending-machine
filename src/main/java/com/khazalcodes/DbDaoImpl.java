@@ -4,6 +4,7 @@ import com.khazalcodes.interfaces.DbDao;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import javax.naming.ldap.PagedResultsControl;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,9 +24,9 @@ public class DbDaoImpl implements DbDao<ItemDto> {
     @Override
     public void readDb() {
         try (Connection conn = DriverManager.getConnection(connectionUrl, user, pass)) {
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM items");
-
+            String sql = "SELECT * FROM items";
+            PreparedStatement pStmt = conn.prepareCall(sql);
+            ResultSet rs =  pStmt.executeQuery();
             while (rs.next()) {
                 ItemDto item = new ItemDto(rs.getInt("id"),
                         rs.getString("name"),
@@ -44,16 +45,22 @@ public class DbDaoImpl implements DbDao<ItemDto> {
 
     @Override
     public void updateDb(ItemDto item) {
+
+
     }
 
     @Override
     public void deleteFromDb(ItemDto dto) {
-
+        /*
+          This functionality is not available to the user so will not be implemented in this class.
+          */
     }
+
     @Override
     public void addToDb(ItemDto dto) {
-
-
+        /*
+          This functionality is not available to the user so will not be implemented in this class.
+          */
     }
 
     @Override
