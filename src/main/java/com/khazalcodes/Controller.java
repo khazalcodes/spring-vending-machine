@@ -73,7 +73,6 @@ public class Controller {
         }
 
         view.goodbyeMessage();
-        vendingMachineService.saveDb();
     }
 
     private boolean userWantsToBuy() {

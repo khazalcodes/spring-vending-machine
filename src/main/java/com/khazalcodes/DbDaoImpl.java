@@ -1,21 +1,16 @@
 package com.khazalcodes;
 
-import com.khazalcodes.interfaces.Dao;
-import com.mysql.cj.jdbc.MysqlDataSource;
+import com.khazalcodes.interfaces.DbDao;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TimeZone;
 
 @Component
 @Qualifier("dbDao")
-public class DbDao implements Dao<ItemDto> {
+public class DbDaoImpl implements DbDao<ItemDto> {
 
     private final Map<Integer, ItemDto> itemsHashMap = new HashMap<>();
     private static final String connectionUrl = "jdbc:mysql://localhost:3306/vending_machine";
@@ -23,11 +18,10 @@ public class DbDao implements Dao<ItemDto> {
     private static final String pass = "";
 
 
-    public DbDao() {
-        readItemsTable();
-    }
+    public DbDaoImpl() { readDb(); }
 
-    public void readItemsTable() {
+    @Override
+    public void readDb() {
         try (Connection conn = DriverManager.getConnection(connectionUrl, user, pass)) {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM items");
@@ -43,20 +37,27 @@ public class DbDao implements Dao<ItemDto> {
         } catch (SQLException e) {
             System.out.println("Error reading db");
             System.out.println(e.getMessage());
-//            StringWriter sq = new StringWriter();
-//            PrintWriter pw = new PrintWriter(sq);
             e.printStackTrace();
             System.exit(0);
         }
     }
 
     @Override
-    public void saveDb() {
+    public void updateDb(ItemDto item) {
+    }
+
+    @Override
+    public void deleteFromDb(ItemDto dto) {
+
+    }
+    @Override
+    public void addToDb(ItemDto dto) {
+
 
     }
 
     @Override
-    public Map<Integer, ItemDto> getAll() {
+    public Map<Integer, ItemDto> getDbAsMap() {
         return itemsHashMap;
     }
 
