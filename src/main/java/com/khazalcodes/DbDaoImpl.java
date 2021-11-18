@@ -18,14 +18,12 @@ public class DbDaoImpl implements DbDao<ItemDto> {
     private static final String user = "dummy";
     private static final String pass = "";
 
-
     public DbDaoImpl() { readDb(); }
 
     @Override
     public void readDb() {
         try (Connection conn = DriverManager.getConnection(connectionUrl, user, pass)) {
-            String sql = "SELECT * FROM items";
-            PreparedStatement pStmt = conn.prepareCall(sql);
+            PreparedStatement pStmt = conn.prepareCall("SELECT * FROM items");
             ResultSet rs =  pStmt.executeQuery();
             while (rs.next()) {
                 ItemDto item = new ItemDto(rs.getInt("id"),
@@ -36,17 +34,23 @@ public class DbDaoImpl implements DbDao<ItemDto> {
                 this.itemsHashMap.put(item.getKey(), item);
             }
         } catch (SQLException e) {
-            System.out.println("Error reading db");
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-            System.exit(0);
+            handleSqlException(e);
         }
     }
 
+    /**
+     * Since we only need to worry about decrementing we only need to change the amount_in_stock
+     * */
     @Override
     public void updateDb(ItemDto item) {
-
-
+        try (Connection conn = DriverManager.getConnection(connectionUrl, user, pass)) {
+            PreparedStatement pStmt = conn.prepareCall("UPDATE items SET amount_in_stock=? WHERE id=?");
+            pStmt.setInt(1, item.getStockRemaining());
+            pStmt.setInt(2, item.getKey());
+            pStmt.executeUpdate();
+        } catch (SQLException e) {
+            handleSqlException(e);
+        }
     }
 
     @Override
@@ -71,5 +75,12 @@ public class DbDaoImpl implements DbDao<ItemDto> {
     @Override
     public ItemDto get(int id) {
         return null;
+    }
+
+    private void handleSqlException(SQLException e) {
+        System.out.println("Error reading db");
+        System.out.println(e.getMessage());
+        e.printStackTrace();
+        System.exit(0);
     }
 }
