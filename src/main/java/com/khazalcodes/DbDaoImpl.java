@@ -42,7 +42,7 @@ public class DbDaoImpl implements DbDao<ItemDto> {
      * Since we only need to worry about decrementing we only need to change the amount_in_stock
      * */
     @Override
-    public void updateDb(ItemDto item) {
+    public void updateRow(ItemDto item) {
         try (Connection conn = DriverManager.getConnection(connectionUrl, user, pass)) {
             PreparedStatement pStmt = conn.prepareCall("UPDATE items SET amount_in_stock=? WHERE id=?");
             pStmt.setInt(1, item.getStockRemaining());

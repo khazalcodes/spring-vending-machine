@@ -13,18 +13,26 @@ import java.util.Map;
 public class VendingMachineService implements DaoService<ItemDto> {
 
     private final DbDao<ItemDto> dao;
+    private final Map<Integer, ItemDto> itemsMap;
 
     @Autowired
-    public VendingMachineService(@Qualifier("dbDao") DbDao<ItemDto> dao) { this.dao = dao; }
+    public VendingMachineService(@Qualifier("dbDao") DbDao<ItemDto> dao) {
+        this.dao = dao;
+        this.itemsMap = dao.getDbAsMap();
+    }
 
-    public void decrementStock(int id) { dao.get(id).decrementStock(); }
+    public void decrementStock(int id) {
+        ItemDto item = itemsMap.get(id);
+        item.decrementStock();
+        dao.updateRow(item);
+    }
 
     @Override
-    public List<ItemDto> getAll() { return new ArrayList<>(dao.getDbAsMap().values()); }
+    public List<ItemDto> getAll() { return new ArrayList<>(itemsMap.values()); }
 
     @Override
-    public Map<Integer, ItemDto> getAllAsMap() { return dao.getDbAsMap(); }
+    public Map<Integer, ItemDto> getAllAsMap() { return itemsMap; }
 
     @Override
-    public ItemDto get(int id) { return dao.get(id); }
+    public ItemDto get(int id) { return itemsMap.get(id); }
 }
