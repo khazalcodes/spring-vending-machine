@@ -43,6 +43,7 @@ public class Controller {
         boolean noItems = view.displayItems(vendingMachineService.getAll());
 
         if (noItems) {
+            System.out.println("No items in vending machine. Cannot vend. Goodbye.");
             return;
         }
 

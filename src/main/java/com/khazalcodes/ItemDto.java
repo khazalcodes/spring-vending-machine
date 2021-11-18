@@ -37,6 +37,12 @@ public class ItemDto implements DbDto {
         CURRENTLY_AVAILABLE_KEY++;
     }
 
+    public ItemDto(int id, String name, double price, int stockRemaining) {
+        this.key = id;
+        this.name = name;
+        this.price = new BigDecimal(price).setScale(2, RoundingMode.HALF_UP);
+        this.stockRemaining = stockRemaining;
+    }
 
     @Override
     public String toString() { return key + ".\t" + name + "\t" + price.toString() + "\t" + stockRemaining; }
